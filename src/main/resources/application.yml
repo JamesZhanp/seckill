@@ -1,0 +1,82 @@
+spring:
+  thymeleaf:
+    cache: false
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/secondkill?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      max-open-prepared-statements: 20
+      pool-prepared-statements: true
+      test-on-return: false
+      test-on-borrow: false
+      validation-query: select 'x'
+      min-evictable-idle-time-millis: 300000
+    tomcat:
+      max-wait: 6000
+      initial-size: 100
+      max-active: 1000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # rabbitmq
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    # 消费者的数量
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        #        每次从队列中取的消息的个数
+        prefetch: 1
+        # 消费者默认启动
+        auto-startup: true
+        # 消费者消费失败之后，将消息重新压入队列
+        default-requeue-rejected: true
+        # 失败重试
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 2
+          max-interval: 10s
+          multiplier: 1.0
+
+  # 页面静态处理
+  resources:
+    add-mappings: true
+    chain:
+      cache: true
+      enabled: true
+      compressed: true
+      html-application-cache: true
+    cache:
+      period: 3600s
+    static-locations: classpath:/static/
+
+mybatis:
+  type-aliases-package: com.james.secondkill.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 300
+  mapper-locations: classpath:com.james.secondkill.dao/*.xml
+
+redis:
+#  pool-max-idle:
+  host: 127.0.0.1
+  port: 6379
+  timeout: 100
+  pool-max-wait: 500
+  pool-max-idle: 500
+  pool-max-total: 1000
