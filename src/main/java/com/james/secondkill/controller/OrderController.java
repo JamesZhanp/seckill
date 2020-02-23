@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2020 - 02 - 13 17:56
  */
 @RestController
-@RequestMapping("order")
+@RequestMapping("/order")
 public class OrderController {
 
     @Autowired

@@ -16,6 +16,7 @@ import com.james.secondkill.service.SeckillService;
 import com.james.secondkill.vo.GoodsVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author: JamesZhan
  * @create: 2020 - 02 - 13 18:03
  */
-@RestController
+@Controller
 @RequestMapping("/miaosha")
 public class SeckillController implements InitializingBean {
 
@@ -66,7 +67,7 @@ public class SeckillController implements InitializingBean {
      @RequestMapping("/do_miaosha")
      public String doMiaoSha(Model model, SeckillUser user, @RequestParam("goodsId") long goodsId){
          model.addAttribute("user", user);
-         // 1. 如果用户为空，返回登录姐面
+         // 1. 如果用户为空，返回登录面
          if (user == null){
              return "login";
          }
